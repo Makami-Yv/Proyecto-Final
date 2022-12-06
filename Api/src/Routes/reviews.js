@@ -38,6 +38,7 @@ router.get('/', async (req, res) => {
 router.post('/add', async (req, res) => {
     try {
         const reviewData = req.body
+        console.log(reviewData)
         if(reviewData) {
             const response = await addReview(reviewData)
             if(!response.msg) {

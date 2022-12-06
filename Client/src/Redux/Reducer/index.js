@@ -184,6 +184,7 @@ const rootReducer = (state = initialState, action) => {
 
     case "GET_QUANTITY":
       const data = action.payload;
+      console.log("Cantidad en carrito: ", data)
       const productsQuant = state.cart.products_id;
       let quantity = 0;
       !data
@@ -193,6 +194,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         quantityFromCart: quantity,
       };
+
     case "GET_CART":
       let LocalCart0 = action.payload;
       if (LocalCart0) {
