@@ -139,7 +139,7 @@ const Navbar = ({ setCurrentPage }) => {
                                         </NavLink>
                                     )}
 
-                                    {link.submenu && (
+                                    {/* {link.submenu && (
                                         <div className="absolute hidden group-hover:block">
                                             <ul className="py-2">
                                                 {link.subMenuItems.map((item, index) => (
@@ -151,7 +151,7 @@ const Navbar = ({ setCurrentPage }) => {
                                                 ))}
                                             </ul>
                                         </div>
-                                    )}
+                                    )} */}
                                 </li>
                             ))}
                         </ul>
@@ -236,7 +236,7 @@ const Navbar = ({ setCurrentPage }) => {
                         </Link>
                     }
                 </div>
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                     <button className="focus:outline-none focus:shadow-outline" onClick={() => handleDarkMode()}>
                         {darkMode ?
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brightness-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -260,7 +260,7 @@ const Navbar = ({ setCurrentPage }) => {
                             </svg>
                         }
                     </button>
-                </div>
+                </div> */}
             </div>
         </div>
     );

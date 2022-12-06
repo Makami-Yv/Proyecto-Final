@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addReview } from "../../utils/reviewFrontController";
-import { cleanReview, getReview } from "../../Redux/Actions/Actions";
+import { cleanReview, getReview, addReview } from "../../Redux/Actions/Actions";
 import swal from 'sweetalert';
 
 // import FormReview from "./FormReview";
@@ -13,7 +12,7 @@ import swal from 'sweetalert';
 
 const Reviews = ({ id }) => {
   const [description, setDescription] = useState("");
-  const [stars, setStars] = useState(0);
+  const [score, setScore] = useState(0);
   const [noUser, setNoUser] = React.useState(false);
 
   const [, setEdescription] = useState("");
@@ -21,7 +20,6 @@ const Reviews = ({ id }) => {
   const [active, setActive] = useState(false);
   const user_id = window.localStorage.getItem("id");
   const reviews = useSelector((state) => state.review);
-  console.log('prueba', reviews)
   const userState = useSelector((state) => state.userData);
   const dispatch = useDispatch();
 
@@ -32,20 +30,23 @@ const Reviews = ({ id }) => {
 
   const modifyStars = (star, edit) => {
     if (edit) return setEstars(star);
-    setStars(star);
+    setScore(star);
   };
-  console.log("userstate", description);
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    if (
-      reviews.map((e) => userState.full_name === e.full_name).includes(true)
-    ) {
+    if (!user_id) {
       setNoUser(true);
-      setStars(0);
+      setScore(0);
       setDescription("");
-    } else if (stars > 0 && description.length > 3) {
-      addReview(user_id, id, description, stars);
-      setStars(0);
+    } else if (score > 0 && description.length > 3) {
+      const newReview = {
+        user_id: user_id,
+        product: id,
+        review: description,
+        score: score
+      }
+      dispatch(addReview(newReview));
+      setScore(0);
       setDescription("");
     } else {
       console.log("No se Pudo Enviar El Formulario");
@@ -57,7 +58,7 @@ const Reviews = ({ id }) => {
     setTimeout(() => {
       
       window.location.reload()
-    },2000)
+    },100000)
 
   };
   // console.log(reviews.map((e) => e.full_name === userState.full_name).includes(true));
@@ -301,7 +302,7 @@ const Reviews = ({ id }) => {
                 {stars5.map((star) => {
                   return (
                     <li key={`stars ${star}`} onClick={() => modifyStars(star)}>
-                      {stars >= star ? (
+                      {score >= star ? (
                         <svg
                           aria-hidden="true"
                           focusable="false"

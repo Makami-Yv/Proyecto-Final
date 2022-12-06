@@ -87,15 +87,15 @@ const getReviewByUser = async (user) => {
 
 const addReview = async (reviewData) => {
     try {
-        const { user, product, score, review } = reviewData
+        const { user_id, product, score, review } = reviewData
+        console.log(reviewData)
         const newReview = await reviewModel.create({
-            user_id: user,
+            user_id: user_id,
             product_id: product,
             score,
             review,
             date: new Date(),
         })
-        console.log('nueva review', newReview)
         const productReviews = await reviewModel.find({
             product_id: product
         })

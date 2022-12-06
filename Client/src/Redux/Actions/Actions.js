@@ -126,7 +126,6 @@ export const getCart = (id) => {
         if(id) {
             await axios.get(`/shoppingCarts/detail/${id}`)
                 .then((response) => {
-                    console.log("response.data: ", response.data)
                     dispatch({ type: "GET_CART", payload: response.data })
                 })
         } else {
@@ -348,7 +347,6 @@ export const postUser = (payload) => {
 
 //get review id
 export const getReview = (product_id) => {
-  console.log('revieeeeew',product_id)
   return async (dispatch) => {
     try {
       const review = await axios.get(`/reviews?product=${product_id}`);
@@ -387,5 +385,20 @@ export function cleanReview(){
   return {
     type: "CLEAN_REVIEW",
     payload: []
+  }
+}
+
+export function addReview(review) {
+  return async (dispatch) => {
+    try {
+      console.log(review)
+      const newReview = await axios.post('/reviews/add', review);
+      dispatch({
+        type: "ADD_REVIEW",
+        payload: newReview.data,
+      });
+    } catch (err) {
+      console.log({ error: err.message });
+    }
   }
 }

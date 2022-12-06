@@ -64,13 +64,13 @@ const getUserByEmail = async (req, res, next) => {
   try {
     const { email } = req.params;
     const user = await userModel.findOne({ email: email });
-    let products = await productModel.find({ _id: { $in: user.favorites } });
+    let products = await productModel.find({ _id: { $in: user?.favorites } });
     if (user) {
       let userToSend = {
         id: user._id,
         full_name: user.full_name,
         email: user.email,
-        favorites: products,
+        favorites: products || [],
       };
       res.status(200).send(userToSend);
     } else {
